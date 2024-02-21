@@ -32,7 +32,7 @@ class DBStorage:
         """Queries on the database session"""
         objects = {}
         if cls is None:
-            classes = [User, State, City, Amenity, Place, Review]
+            classes = [User, State, City, Place]
         else:
             if type(cls) == str:
                 classes = eval(cls)
