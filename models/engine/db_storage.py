@@ -26,21 +26,24 @@ class DBStorage:
             f"mysql+mysqldb://{user}:{password}@{host}/{db}",
             pool_pre_ping=True)
         if os.getenv("HBNB_ENV") == "test":
+            Base.metadata.bind = self.__engine
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """Queries on the database session"""
         objects = {}
         if cls is None:
-            classes = [User, State, City, Place]
+            classes = [User, State, City, Place, Amenity, Review]
+            for cls_ in classes:
+                for obj in self.__session.query(cls_).all():
+                    objects[f"{type(obj).__name__}.{obj.id}"] = obj
         else:
             if type(cls) == str:
                 classes = eval(cls)
             else:
                 classes = cls
-        for cls_ in classes:
-            for obj in self.__session.query(cls_).all():
-                objects[f"{type(obj).__name__}.{obj.id}"] = obj
+            self.__session.query(classes).all()
+            objects[f"{type(obj).__name__}.{obj.id}"] = obj
         return objects
 
     def new(self, obj):
