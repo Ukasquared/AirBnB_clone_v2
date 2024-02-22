@@ -26,7 +26,6 @@ class DBStorage:
             f"mysql+mysqldb://{user}:{password}@{host}/{db}",
             pool_pre_ping=True)
         if os.getenv("HBNB_ENV") == "test":
-            Base.metadata.bind = self.__engine
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
@@ -43,7 +42,7 @@ class DBStorage:
             else:
                 classes = cls
             self.__session.query(classes).all()
-            objects[f"{type(obj).__name__}.{obj.id}"] = obj
+            objects[f"{type(classes).__name__}.{obj.id}"] = obj
         return objects
 
     def new(self, obj):

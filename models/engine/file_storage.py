@@ -60,8 +60,6 @@ class FileStorage:
         """Deletes obj from __objects if it’s inside"""
         if obj is not None:
             for key, value in self.__objects.items():
-                print(key)
-                print(value)
                 if value == obj:
                     self.__objects.pop(key, None)
                     break
