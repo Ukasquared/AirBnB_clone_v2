@@ -135,11 +135,6 @@ class HBNBCommand(cmd.Cmd):
                 if ' ' not in value:
                     if '_' in value:
                         value = value.replace('_', ' ')
-                    elif '.' in value:
-                        value = float(value)
-                    elif value.isdigit():
-                        if key not in ['city_id', 'user_id']:
-                            value = int(value)
                     new_obj[key] = value
         new_instance = HBNBCommand.classes[class_arg]()
         for key, value in new_obj.items():
