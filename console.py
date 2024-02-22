@@ -133,8 +133,7 @@ class HBNBCommand(cmd.Cmd):
         if kwargs:
             for key, value in kwargs.items():
                 if ' ' not in value:
-                    if '"' in value and \
-                            value.replace("\"", '').count('"') % 2 == 0:
+                    if '_' in value:
                         value = value.replace('_', ' ')
                     elif '.' in value:
                         value = float(value)
