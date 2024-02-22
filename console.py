@@ -130,23 +130,31 @@ class HBNBCommand(cmd.Cmd):
         elif class_arg not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        if kwargs:
-            for key, value in kwargs.items():
-                if ' ' not in value:
-                    if '"' in value and \
-                            value.replace("\"", '').count('"') % 2 == 0:
-                        value = value.replace('_', ' ')
-                    elif '.' in value:
-                        value = float(value)
-                    elif value.isdigit():
-                        if key not in ['city_id', 'user_id']:
-                            value = int(value)
-                    new_obj[key] = value
+        # if args:
+            # for key, value in kwargs.items():
+            #     print(key, value)
+            #     if ' ' not in value:
+            #         if '"' in value and \
+            #                 value.replace("\"", '').count('"') % 2 == 0:
+            #             value = value.replace('_', ' ')
+            #         elif '.' in value:
+            #             value = float(value)
+            #         elif value.isdigit():
+            #             if key not in ['city_id', 'user_id']:
+            #                 value = int(value)
+            #         new_obj[key] = value
         new_instance = HBNBCommand.classes[class_arg]()
-        for key, value in new_obj.items():
-            setattr(new_instance, key, value)
+        if args:
+            for key, value in vars(new_instance).items():
+                setattr(new_instance, key, value)
+                storage.new(new_instance)
         storage.save()
         print(new_instance.id)
+        # storage.new(new_instance)
+        # for key, value in new_instance.items():
+        #      setattr(new_instance, key, value)
+        # storage.save()
+        # print(new_instance.id)
 
     def help_create(self):
         """ Help information for the create method """
