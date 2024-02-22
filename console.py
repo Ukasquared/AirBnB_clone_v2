@@ -133,22 +133,18 @@ class HBNBCommand(cmd.Cmd):
         if kwargs:
             for key, value in kwargs.items():
                 if ' ' not in value:
-                    if '_' in value:
+                    if '"' in value and \
+                            value.replace("\"", '').count('"') % 2 == 0:
                         value = value.replace('_', ' ')
-                    elif value[0] == "-":
-                        if value[1:].isdigit():
-                            value = int(value)
-                        elif value[1:].replace('.', '', 1).isnumeric():
-                            value = float(value)
-                    elif value.isdigit():
-                        value = int(value)
-                    elif value.replace('.', '', 1).isnumeric():
+                    elif '.' in value:
                         value = float(value)
+                    elif value.isdigit():
+                        if key not in ['city_id', 'user_id']:
+                            value = int(value)
                     new_obj[key] = value
         new_instance = HBNBCommand.classes[class_arg]()
         for key, value in new_obj.items():
             setattr(new_instance, key, value)
-        storage.new(new_instance)
         storage.save()
         print(new_instance.id)
 
@@ -226,7 +222,6 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
         print_list = []
-
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
             if args not in HBNBCommand.classes:
@@ -345,3 +340,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
+
+if __name__ == "__main__":
+    HBNBCommand().cmdloop()
