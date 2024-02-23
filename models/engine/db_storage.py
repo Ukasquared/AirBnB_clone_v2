@@ -9,6 +9,7 @@ from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm.session import sessionmaker
 from models.user import User
 from models.place import Place
+from models.review import Review
 
 
 class DBStorage:
@@ -30,7 +31,7 @@ class DBStorage:
         """Queries on the database session"""
         objects = {}
         if cls is None:
-            classes = [State, City, User, Place]
+            classes = [State, City, User, Place, Review]
             for cls_ in classes:
                 for obj in self.__session.query(cls_).all():
                     objects[f"{type(obj).__name__}.{obj.id}"] = obj
