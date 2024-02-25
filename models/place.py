@@ -5,6 +5,13 @@ from sqlalchemy import Column, String, ForeignKey, Integer, Float
 from sqlalchemy.orm import relationship
 
 
+metadata = Base.metadata
+
+place_amenity = place_amenities('association', metadata,
+    Column('place_id', String(60), ForeignKey('places.id'), nullable=False),
+    Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True,nullable=False)
+)
+
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
@@ -23,3 +30,4 @@ class Place(BaseModel, Base):
     cities = relationship("City", back_populates="places")
     reviews = relationship("Review", back_populates="place",
                            cascade="all, delete-orphan")
+    amenities = relationship("Place" secondary="place_amenity", back_populates="amenities", viewonly=False)
