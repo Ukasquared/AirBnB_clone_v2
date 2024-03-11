@@ -5,8 +5,8 @@ if ! which nginx > /dev/null 2>&1; then
 	sudo apt-get update
 	sudo apt-get install nginx -y
 fi
-sudo mkdir -p /data/web_static/releases/test/
-echo "Holberton School" | sudo tee /data/web_static/releases/test/index.html > /dev/null
+sudo mkdir -p /data/web_static/releases/test/ /data/web_static/shared/
+echo "<html><head></head><body>Holberton School</body></html>" | sudo tee /data/web_static/releases/test/index.html > /dev/null
 sudo ln -fs /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
 echo "
