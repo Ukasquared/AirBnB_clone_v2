@@ -148,8 +148,9 @@ class HBNBCommand(cmd.Cmd):
         new_instance = HBNBCommand.classes[class_arg]()
         for key, value in new_obj.items():
             setattr(new_instance, key, value)
-        storage.new(new_instance)
-        storage.save()
+            # storage.new(new_instance)
+            # storage.save()
+        new_instance.save()
         print(new_instance.id)
 
     def help_create(self):
@@ -234,6 +235,7 @@ class HBNBCommand(cmd.Cmd):
                 return
             for k, v in storage.all().items():
                 if k.split('.')[0] == args:
+                    # returns the __str__ method in instance
                     print_list.append(str(v))
         else:
             for k, v in storage.all().items():
