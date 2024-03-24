@@ -15,10 +15,13 @@ class State(BaseModel, Base):
     cities = relationship("City",
                           back_populates="state",
                           cascade="all, delete-orphan")
-    # @property
-   # def cities(self):
-       # from models import storage
-       # list_of_cities = []
-        # for city in DB.__session.query(State).
-        # filter(State.id == City.state_id): 
-        # list_of_cities.append(city)
+    @property
+    def cities(self):
+        """ returns list of
+        city instatnces"""
+        from models.engine import FileStorage
+        list_of_cities = []
+        for key, value in FileStorage.all(City).items():
+            if self.id == value.state_id:
+                list_of_cities.append(value)
+        return (list_of_cities)
