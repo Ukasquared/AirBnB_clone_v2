@@ -1,7 +1,13 @@
 #!/usr/bin/python3
 """ Test link Many-To-Many Place <> Amenity
 """
-from models import *
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+from models.__init__ import storage
 
 # creation of a State
 state = State(name="California")
@@ -27,6 +33,7 @@ amenity_1.save()
 amenity_2 = Amenity(name="Cable")
 amenity_2.save()
 amenity_3 = Amenity(name="Oven")
+print(f"amenity:{amenity_3.id}")
 amenity_3.save()
 
 # link place_1 with 2 amenities

@@ -3,22 +3,22 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
-from models.city import City
 from os import getenv
-
+from models.city import City
 storage_type = getenv("HBNB_TYPE_STORAGE")
+
 
 class State(BaseModel, Base):
     """ State class """
-    __tablename__ = "states"
+    __tablename__ = 'states'
     name = Column(String(128), nullable=False)
-    cities = relationship("City",
-                          back_populates="state",
-                          cascade="all, delete-orphan")
+    cities = relationship("City", back_populates="state", cascade="all, delete-orphan")
+
+# cannot have cities attribute and getter attribute named cities along side, throws up error except backref instead of bak_populates is used
     @property
-    def cities(self):
+    def citiess(self):
         """ returns list of
-        city instatnces"""
+        city instances"""
         from models.engine import FileStorage
         list_of_cities = []
         for key, value in FileStorage.all(City).items():
