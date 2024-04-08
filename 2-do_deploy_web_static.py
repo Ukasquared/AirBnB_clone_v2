@@ -10,6 +10,7 @@ env.user = "ubuntu"
 env.key_filename = "~/.ssh/id_rsa"
 
 def do_deploy(archive_path):
+    """ deployment     """
     try:
         # path existence
         if not path.exists(archive_path):
