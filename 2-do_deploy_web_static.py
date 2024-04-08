@@ -14,8 +14,8 @@ def do_deploy(archive_path):
         # path existence
         if not path.exist(archive_path):
             return False
-        # upload archive to remote director
-        put("{archive_path}, {remote_directory}")
+        # upload archive to remote directory
+        put("{archive_path}", "/tmp/")
         # remove .tgz 
         split_archive = archive_path.split('.')[0][9:]
         # create dir to compress the archive
@@ -23,7 +23,8 @@ def do_deploy(archive_path):
         # create another dir in remote server
         run("sudo mkdir -p {remote_directory_two}")
         # uncompress the file into folder
-        run(f"sudo tar -xzf {remote_directory} -C {remote_directory_two}")
+        remote = "/tmp/{archive_path}"
+        run(f"sudo tar -xzf {remote} -C {remote_directory_two}")
         # remove the prev archive location
         run("sudo rm -r {remote_directory}")
         # remove symbolic link
