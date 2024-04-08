@@ -37,5 +37,4 @@ def do_deploy(archive_path):
         run(f"sudo ln -s {remote_directory_two} /data/web_static/current")
         return True
     except Exception as e:
-        print(e)
         return False
