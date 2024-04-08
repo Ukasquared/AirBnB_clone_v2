@@ -59,19 +59,20 @@ server {
 	server_name _;
 
 	error_page 404 /custom_404.html;
-	location = /redirect_me {
+
+	location /redirect_me {
 		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
 	}
 
 	location /hbnb_static {
 		alias /data/web_static/current/;
-		index index.html;
 	}
+
 	location / {
 		add_header X-Served-By '286360-web-01';
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
-		try_files $uri $uri/ =404;
+		try_files \$uri \$uri/ =404;
 	}
 
 	# pass PHP scripts to FastCGI server
@@ -91,25 +92,5 @@ server {
 	#location ~ /\.ht {
 	#       deny all;
 	#}
-}
-
-
-# Virtual Host configuration for example.com
-#
-# You can move that to a different file under sites-available/ and symlink that
-# to sites-enabled/ to enable it.
-#
-#server {
-#       listen 80;
-#       listen [::]:80;
-#
-#       server_name example.com;
-#
-#       root /var/www/example.com;
-#       index index.html;
-#
-#       location / {
-#               try_files $uri $uri/ @404;
-#       }
-#}" | sudo tee /etc/nginx/sites-available/default > /dev/null 2>&1
+}" | sudo tee /etc/nginx/sites-available/default > /dev/null 2>&1
 sudo service nginx restart
