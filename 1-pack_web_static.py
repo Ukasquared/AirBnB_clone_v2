@@ -8,7 +8,7 @@ def do_pack():
     try:
         local(f"mkdir -p versions")
         now = datetime.now().strftime('%Y%m%d%H%M%S')
-        file_name = f"web_static_.{now}.tgz"
+        file_name = f"web_static_{now}.tgz"
         local(f"tar -czvf versions/{file_name} web_static")
         return "versions/{file_name}"
     except Exception as e:
