@@ -35,7 +35,6 @@ def do_deploy(archive_path):
         # remove prev symbolic link and direct to new sym link
         run(f"sudo rm -rf /data/web_static/current")
         run(f"sudo ln -s {remote_directory_two} /data/web_static/current")
+        return True
     except:
         return False
-    
-    return True
