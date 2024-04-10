@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """distributes an archive to your web servers,
 using the function do_deploy """
-from fabric.api import local, put, env, run
+from fabric.api import put, env, run
 from os import path
 
 """ establishing connection with th host """
