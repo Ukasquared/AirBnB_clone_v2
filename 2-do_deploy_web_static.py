@@ -32,6 +32,8 @@ def do_deploy(archive_path):
         run(f"sudo rm {remote}")
         # move the file into the remote_directory_two
         run(f"sudo mv {remote_directory_two}web_static/* {remote_directory_two}") 
+        # remove webstatic directory
+        run(f'sudo rm -rf {remote_directory_two}web_static/')
         # remove prev symbolic link and direct to new sym link
         run(f"sudo rm -rf /data/web_static/current")
         run(f"sudo ln -s {remote_directory_two} /data/web_static/current")
