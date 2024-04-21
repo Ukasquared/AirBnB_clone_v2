@@ -25,12 +25,13 @@ def user_input(text):
     return (f"C {text}")
 
 
-@app.route('/python/', defaults={'text' : 'is cool'}, strict_slashes=False)
+@app.route('/python/', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def second_input(text):
     if "_" in text:
         text = text.replace('_', ' ')
     return (f"Python {text}")
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
