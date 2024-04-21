@@ -21,7 +21,7 @@ def hello_hbnb():
 def user_input(text):
     """ recieves user input to display"""
     if '_' in text:
-        text.replace('_', ' ')
+        text = text.replace('_', ' ')
     return (f"C {text}")
 
 
