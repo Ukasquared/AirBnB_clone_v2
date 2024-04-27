@@ -40,8 +40,8 @@ class DBStorage:
                 classes = eval(cls)
             else:
                 classes = cls
-            self.__session.query(classes).all()
-            objects[f"{type(classes).__name__}.{obj.id}"] = obj
+            for obj in self.__session.query(classes).all():
+                objects[f"{type(classes).__name__}.{obj.id}"] = obj
         return objects
 
     def new(self, obj):
@@ -63,6 +63,10 @@ class DBStorage:
         Create the current DB session from the engine
         """
         Base.metadata.create_all(self.__engine)
-        session = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        session = scoped_session(session)
+        Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session = scoped_session(Session)
         self.__session = session()
+    
+    def close(self):
+        """ close sesseion"""
+        self.__session.close()

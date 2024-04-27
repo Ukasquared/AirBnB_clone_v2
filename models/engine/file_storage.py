@@ -12,8 +12,9 @@ class FileStorage:
         """Returns a dictionary of models currently in storage"""
         if cls is not None:
             objects = {}
+            class_name = cls.__name__
             for key, value in FileStorage.__objects.items():
-                if isinstance(value, cls):
+                if key.split('.')[0] == class_name:
                     objects[key] = value
             return objects
         else:
@@ -63,3 +64,6 @@ class FileStorage:
                 if value == obj:
                     self.__objects.pop(key, None)
                     break
+    def close(self):
+        """ calls the reload funtion"""
+        Filestorage.reload()
